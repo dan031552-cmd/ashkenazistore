@@ -1,8 +1,6 @@
 const WHATSAPP_NUMBER = '972552956401'; // מספר וואטסאפ בפורמט בינלאומי, בלי + או מקפים.
 const products = [
-  {id:'classic',name:'אשכנזי קלאסי',description:'הסמל הראשון. לבן, נקי, בלתי נשכח.',art:'',base:70,old:80},
-  {id:'court',name:'אשכנזי / מגרש',description:'הדפס קטן שמזכיר מאיפה הכול התחיל.',art:'dark-ink',base:70,old:80},
-  {id:'full-white',name:'אשכנזי לבן מדי',description:'למי שלא מפחד ללכת עד הסוף.',art:'yellow-mark',base:70,old:80}
+  {id:'classic',name:'אשכנזי קלאסי',description:'החולצה הראשונה. לבנה, נקייה, בלתי נשכחת.',art:'',base:70,old:80}
 ];
 const letterSizes = ['XS','S','M','L','XL','XXXL'];
 const numberSizes = Array.from({length:47}, (_,i)=>String(i+1));
@@ -28,7 +26,8 @@ function pricing(){
 }
 function teeMarkup(art=''){ return `<div class="tee-shape ${art}"></div>`; }
 function renderProducts(){
-  $('#product-grid').innerHTML = products.map((product,index)=>`<article class="product-card"><div class="product-visual">${teeMarkup(product.art)}<span class="product-index">0${index+1} / 03</span><span class="product-color">WHITE ONLY</span></div><div class="product-info"><div class="product-title-row"><div><div class="product-title">${product.name}</div><div class="product-description">${product.description}</div></div></div><div class="price-row"><div class="price"><span class="old-price">${money(product.old)}</span>${money(product.base)}</div><button class="add-button" data-product="${product.id}" type="button">בחירה +</button></div></div></article>`).join('');
+  const productCards = products.map((product,index)=>`<article class="product-card"><div class="product-visual">${teeMarkup(product.art)}<span class="product-index">0${index+1} / 01</span><span class="product-color">WHITE ONLY</span></div><div class="product-info"><div class="product-title-row"><div><div class="product-title">${product.name}</div><div class="product-description">${product.description}</div></div></div><div class="price-row"><div class="price"><span class="old-price">${money(product.old)}</span>${money(product.base)}</div><button class="add-button" data-product="${product.id}" type="button">בחירה +</button></div></div></article>`).join('');
+  $('#product-grid').innerHTML = `${productCards}<article class="product-card coming-product"><div class="product-visual"><div class="coming-symbol">＋</div><span class="product-index">02 / 02</span><span class="product-color">COMING SOON</span></div><div class="product-info"><div class="product-title">חולצה נוספת</div><div class="product-description">בבנייה עכשיו. תגיע בקרוב.</div><div class="price-row"><span class="coming-label">בקרוב</span><span class="coming-dash">—</span></div></div></article>`;
   $$('.add-button').forEach(button=>button.addEventListener('click',()=>openProduct(productById(button.dataset.product))));
 }
 function openProduct(product){
